@@ -1,397 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agentic Robots • Physical AI Fleet</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-    
-    :root {
-      --bg: #0a0a0a;
-      --text: #f5f5f5;
-      --accent: #00ff9f;
-      --card: #111;
-    }
-    
-    * { box-sizing: border-box; }
-    
-    body {
-      margin: 0;
-      font-family: 'Inter', system_ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    
-    header {
-      padding: 32px 0 48px;
-      border-bottom: 1px solid #222;
-    }
-    
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -1px;
-    }
-    
-    .logo span {
-      color: var(--accent);
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      font-size: 15px;
-    }
-    
-    .nav-links a {
-      color: #aaa;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .nav-links a:hover {
-      color: var(--text);
-    }
-    
-    .hero {
-      padding: 80px 0 60px;
-      text-align: center;
-    }
-    
-    .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 72px;
-      font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: -3px;
-      margin: 0 0 24px;
-    }
-    
-    .hero .subtitle {
-      font-size: 22px;
-      color: #999;
-      max-width: 620px;
-      margin: 0 auto 40px;
-    }
-    
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 600;
-      padding: 14px 32px;
-      border-radius: 9999px;
-      text-decoration: none;
-      font-size: 16px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 255, 159, 0.3);
-    }
-    
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      margin-top: 60px;
-      flex-wrap: wrap;
-    }
-    
-    .stat {
-      text-align: center;
-    }
-    
-    .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 42px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    
-    .stat-label {
-      font-size: 14px;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    section {
-      padding: 80px 0;
-    }
-    
-    .section-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 16px;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    
-    .card {
-      background: var(--card);
-      border: 1px solid #222;
-      border-radius: 16px;
-      padding: 28px;
-      transition: border-color 0.2s;
-    }
-    
-    .card:hover {
-      border-color: #333;
-    }
-    
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 21px;
-    }
-    
-    .fleet {
-      background: #0f0f0f;
-      border-radius: 20px;
-      padding: 40px;
-      margin: 40px 0;
-    }
-    
-    .device {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid #222;
-    }
-    
-    .device:last-child {
-      border-bottom: none;
-    }
-    
-    .device-name {
-      font-weight: 500;
-    }
-    
-    .device-spec {
-      font-size: 14px;
-      color: #777;
-    }
-    
-    .links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    
-    .link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      padding: 8px 16px;
-      border: 1px solid #333;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    
-    .link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    
-    footer {
-      border-top: 1px solid #222;
-      padding: 40px 0;
-      color: #666;
-      font-size: 14px;
-    }
-    
-    .accent {
-      color: var(--accent);
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Robots — physical AI for healthcare &amp; hospitality</title>
+<meta name="description" content="Agentic Robots builds humanoid robots with augmented reality and tactile feedback to reconnect families in senior living, plus autonomous service &amp; delivery robots for hotels and hospitals.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#06070d">
+<link rel="canonical" href="https://agentic-robots.ai/">
+<meta property="og:title" content="Agentic Robots">
+<meta property="og:description" content="AR for senior living. Autonomous service &amp; delivery robots for hotels and hospitals.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agentic-robots.ai/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Agentic Robots">
+<meta name="twitter:description" content="Physical AI for healthcare &amp; hospitality — humanoid robots, AR, and autonomous service.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Agentic Robots","url":"https://agentic-robots.ai/","email":"hello@agentic-robots.ai","description":"Physical AI for healthcare and hospitality: humanoid robots with augmented reality and tactile feedback for senior living, and autonomous service and delivery robots for hotels and hospitals.","sameAs":["https://kulbir-singh-ahluwalia.com"]}
+</script>
+<style>
+  :root{
+    --bg:#06070d; --bg2:#0b0d18; --panel:#0e1120; --line:#1b2236; --fg:#eef1f8; --muted:#97a1b8;
+    --care:#2dd4bf;          /* healthcare / AR */
+    --host:#818cf8;          /* hospitality / service robots */
+    --max:1140px; --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--care);outline-offset:3px;border-radius:6px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--care);color:#04101a;padding:10px 16px;border-radius:0 0 10px 0;font-weight:700;z-index:100}
+  .skip:focus{left:0}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:12px 20px;border-radius:11px;font-weight:650;font-size:15px;transition:.16s;border:1px solid transparent}
+  .btn.primary{background:linear-gradient(100deg,var(--care),var(--host));color:#04101a}
+  .btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn.ghost{border-color:var(--line);color:var(--fg)}
+  .btn.ghost:hover{border-color:#34405c;background:#11141f}
+  .eyebrow{font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  /* nav */
+  header{position:sticky;top:0;z-index:60;backdrop-filter:blur(12px);background:rgba(6,7,13,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:-.01em}
+  .logo .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--care),var(--host));box-shadow:0 0 16px rgba(129,140,248,.7)}
+  .navlinks{display:flex;gap:28px;align-items:center}
+  .navlinks a{color:var(--muted);font-size:14.5px;font-weight:500}
+  .navlinks a:hover{color:var(--fg)}
+  @media(max-width:720px){.navlinks .l{display:none}}
+  /* hero */
+  .hero{position:relative;padding:128px 0 92px;text-align:center}
+  .hero::before{content:"";position:absolute;inset:-15% -20% auto -20%;height:680px;z-index:-1;
+    background:radial-gradient(540px 320px at 32% 8%,rgba(45,212,191,.20),transparent 70%),
+               radial-gradient(560px 340px at 70% 0%,rgba(129,140,248,.22),transparent 70%)}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--muted);margin-bottom:26px}
+  .pill .g{width:7px;height:7px;border-radius:50%;background:var(--care);box-shadow:0 0 10px var(--care)}
+  h1{font-size:clamp(38px,6.6vw,70px);line-height:1.03;letter-spacing:-.028em;font-weight:820;max-width:17ch;margin:0 auto}
+  .grad{background:linear-gradient(100deg,var(--care),var(--host) 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin:26px auto 0;max-width:62ch;font-size:clamp(16px,2vw,20px);color:var(--muted)}
+  .hero .cta{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .trust{margin-top:46px;color:#69728a;font-size:13px;letter-spacing:.06em}
+  .trust b{color:#aab3c8;font-weight:600}
+  /* sections */
+  section{padding:90px 0}
+  h2{font-size:clamp(28px,3.8vw,42px);letter-spacing:-.02em;font-weight:760;margin:12px 0 0;max-width:20ch}
+  .lede{color:var(--muted);max-width:60ch;margin-top:16px;font-size:17px}
+  /* solution split */
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .split.rev .copy{order:2}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:30px}.split.rev .copy{order:0}}
+  ul.feat{list-style:none;margin-top:24px;display:grid;gap:12px}
+  ul.feat li{display:flex;gap:12px;align-items:flex-start;color:#c6cdde;font-size:15.5px}
+  ul.feat li .tick{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+  .care .tick{background:rgba(45,212,191,.14);color:var(--care);border:1px solid rgba(45,212,191,.3)}
+  .host .tick{background:rgba(129,140,248,.14);color:var(--host);border:1px solid rgba(129,140,248,.3)}
+  .care .eyebrow{color:var(--care)} .host .eyebrow{color:var(--host)}
+  /* visual card */
+  .viz{position:relative;border-radius:var(--r);border:1px solid var(--line);padding:30px;min-height:300px;
+    background:linear-gradient(180deg,var(--panel),#080a14);overflow:hidden}
+  .viz.care{box-shadow:inset 0 0 90px rgba(45,212,191,.08)}
+  .viz.host{box-shadow:inset 0 0 90px rgba(129,140,248,.08)}
+  .viz .glow{position:absolute;inset:auto -40px -60px auto;width:220px;height:220px;border-radius:50%;filter:blur(46px);opacity:.5}
+  .viz.care .glow{background:var(--care)} .viz.host .glow{background:var(--host)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;position:relative}
+  .chip{font-size:13px;padding:9px 13px;border-radius:10px;background:#0c0f1c;border:1px solid var(--line);color:#bcc4d6}
+  .viz .big{font-size:54px;margin-bottom:14px;position:relative}
+  /* markets */
+  .markets{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:46px}
+  .mk{background:linear-gradient(180deg,var(--panel),#080a14);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:.18s}
+  .mk:hover{transform:translateY(-3px);border-color:#2e3854}
+  .mk .ic{font-size:26px;margin-bottom:14px}
+  .mk h3{font-size:18px;letter-spacing:-.01em}
+  .mk p{color:var(--muted);font-size:14.5px;margin-top:8px}
+  /* vision */
+  .vision{text-align:center}
+  .vision p{font-size:clamp(20px,2.6vw,28px);font-weight:600;letter-spacing:-.01em;max-width:24ch;margin:18px auto 0;line-height:1.35}
+  .vision .em{color:transparent;background:linear-gradient(100deg,var(--care),var(--host));-webkit-background-clip:text;background-clip:text}
+  /* cta band */
+  .band{background:linear-gradient(120deg,rgba(45,212,191,.12),rgba(129,140,248,.13));border:1px solid var(--line);border-radius:26px;padding:58px 32px;text-align:center}
+  .band h2{max-width:20ch;margin:0 auto}
+  .band .cta{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  footer{border-top:1px solid var(--line);padding:42px 0;color:var(--muted);font-size:14px}
+  .frow{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  footer a:hover{color:var(--fg)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header>
-      <div class="nav">
-        <div class="logo">agentic<span>robots</span></div>
-        <div class="nav-links">
-          <a href="#fleet">Fleet</a>
-          <a href="https://kulbir-singh-ahluwalia.com" target="_blank">Research</a>
-          <a href="https://github.com/enterprises/agentic-robots" target="_blank">GitHub</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </header>
+<a class="skip" href="#healthcare">Skip to content</a>
+<header><div class="wrap"><nav aria-label="Primary">
+  <a class="logo" href="/"><span class="dot" aria-hidden="true"></span> Agentic&nbsp;Robots</a>
+  <div class="navlinks">
+    <a class="l" href="#healthcare">Healthcare</a>
+    <a class="l" href="#hospitality">Hospitality</a>
+    <a class="l" href="#vision">Vision</a>
+    <a class="btn primary" href="mailto:hello@agentic-robots.ai">Partner with us</a>
+  </div>
+</nav></div></header>
 
-    <!-- Hero -->
-    <div class="hero">
-      <h1>Agentic Robots.<br>Physical AI at scale.</h1>
-      <p class="subtitle">
-        A distributed fleet of high-performance machines and agents for grounded robotics, 
-        VLMs, and real-world physical intelligence research.
-      </p>
-      
-      <a href="https://github.com/enterprises/agentic-robots" class="cta" target="_blank">
-        Explore the org →
-      </a>
-      
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-number">6+</div>
-          <div class="stat-label">Machines</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">128GB+</div>
-          <div class="stat-label">Unified on DGX</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">RTX 5090</div>
-          <div class="stat-label">Workstation</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">∞</div>
-          <div class="stat-label">Agents</div>
+<main>
+  <section class="hero"><div class="wrap">
+    <span class="pill"><span class="g" aria-hidden="true"></span> Physical AI for healthcare &amp; hospitality</span>
+    <h1>Robots and <span class="grad">augmented reality</span>, in the places that care for people.</h1>
+    <p class="sub">We build humanoid robots — with augmented reality and real tactile feedback — that reconnect families with their loved ones in senior living, plus autonomous service and delivery robots for hotels and hospitals. So caregivers and staff can focus on people.</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:hello@agentic-robots.ai">Partner with us</a>
+      <a class="btn ghost" href="#healthcare">What we build ↓</a>
+    </div>
+    <div class="trust">Built for <b>senior&#8209;living communities</b> · <b>hotels &amp; resorts</b> · <b>hospitals &amp; clinics</b></div>
+  </div></section>
+
+  <!-- HEALTHCARE / AR -->
+  <section id="healthcare"><div class="wrap">
+    <div class="split care">
+      <div class="copy">
+        <span class="eyebrow">Healthcare · Senior living</span>
+        <h2>Humanoid robots with AR and touch that reconnect families with their loved ones.</h2>
+        <p class="lede">Humanoid companions that pair augmented reality with real tactile, haptic feedback — so a visit from family feels present and physical, not trapped behind a screen. Designed with caregivers, built for dignity.</p>
+        <ul class="feat">
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Family presence you can feel</b> — AR + haptic feedback brings distant loved ones into the room with a sense of touch, not just video.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Companionship &amp; engagement</b> — a humanoid presence for conversation, reminiscence, and daily routine.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Memory &amp; calm</b> — familiar places, music, and memories rendered around the resident to spark recall and ease anxiety.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Caregiver insight</b> — lightweight dashboards so staff see what helps each resident, without the clipboard.</span></li>
+        </ul>
+      </div>
+      <div class="viz care"><span class="glow" aria-hidden="true"></span>
+        <div class="big" aria-hidden="true">🧠✨</div>
+        <div class="chips">
+          <span class="chip">Family presence + touch</span><span class="chip">Tactile / haptic feedback</span>
+          <span class="chip">Humanoid companion</span><span class="chip">Reminiscence &amp; calm</span>
+          <span class="chip">Caregiver dashboard</span><span class="chip">Dignity&#8209;first design</span>
         </div>
       </div>
     </div>
+  </div></section>
 
-    <!-- What we do -->
-    <section id="about">
-      <div class="section-title">What we're building</div>
-      <div style="max-width: 720px; font-size: 19px; color: #ccc;">
-        We run a heterogeneous compute fleet (NVIDIA DGX Spark systems, high-end workstations, 
-        Jetson Thor, and university clusters) to train, distill, and deploy vision-language models 
-        that actually control real robots in the wild — agricultural fields, greenhouses, and beyond.
-        <br><br>
-        Everything is orchestrated with Tailscale, custom SSH fleets, agentic workflows, and 
-        reproducible pipelines. The goal: scalable Physical AI.
+  <!-- HOSPITALITY / SERVICE ROBOTS -->
+  <section id="hospitality" style="background:linear-gradient(180deg,transparent,var(--bg2) 12%,var(--bg2) 88%,transparent)"><div class="wrap">
+    <div class="split host rev">
+      <div class="copy">
+        <span class="eyebrow">Hospitality · Hotels &amp; hospitals</span>
+        <h2>Humanoid service robots for housekeeping and delivery that never clock out.</h2>
+        <p class="lede">Fleets of humanoid, human&#8209;aware robots — in the spirit of modern general&#8209;purpose humanoid platforms — that handle the legwork inside hotels and hospitals: navigating elevators, corridors, and crowds safely, 24/7, so your team isn't running deliveries all shift.</p>
+        <ul class="feat">
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>In&#8209;hotel food &amp; room&#8209;service delivery</b> — meals, towels, and amenities to the door, autonomously.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Hospital medicine &amp; supply runs</b> — secure, traceable delivery of medications and supplies between wards.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Housekeeping support</b> — restocking, linen and waste runs that free staff for guest&#8209; and patient&#8209;facing work.</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span><b>Elevator &amp; door integration + safe navigation</b> — robots that ride lifts, open doors, and move politely around people.</span></li>
+        </ul>
       </div>
-    </section>
+      <div class="viz host"><span class="glow" aria-hidden="true"></span>
+        <div class="big" aria-hidden="true">🤖🛎️</div>
+        <div class="chips">
+          <span class="chip">Room&#8209;service delivery</span><span class="chip">Medicine delivery</span>
+          <span class="chip">Supply &amp; linen runs</span><span class="chip">Elevator integration</span>
+          <span class="chip">24/7 operation</span><span class="chip">Human&#8209;aware navigation</span>
+        </div>
+      </div>
+    </div>
+  </div></section>
 
-    <!-- Fleet -->
-    <section id="fleet">
-      <div class="section-title">The fleet (home devices)</div>
-      
-      <div class="fleet">
-        <div class="device">
-          <div>
-            <div class="device-name">MSI Workstation (RTX 5080)</div>
-            <div class="device-spec">Primary dev + orchestration node • Tailscale 100.65.71.120</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">msi / ar-msi</div>
-        </div>
-        <div class="device">
-          <div>
-            <div class="device-name">DGX Spark X2 (128 GB unified)</div>
-            <div class="device-spec">Primary heavy inference + training • kulbir-spark-x2</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">ar-x2 / dgx-x2</div>
-        </div>
-        <div class="device">
-          <div>
-            <div class="device-name">DGX Spark X1 (128 GB unified)</div>
-            <div class="device-spec">Secondary node (recovery workflows on X2)</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">ar-x1 / dgx-x1</div>
-        </div>
-        <div class="device">
-          <div>
-            <div class="device-name">Siebel-PC (RTX 5090 32 GB)</div>
-            <div class="device-spec">High-power GPU workstation • Chahit collab</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">ar-siebel / siebel</div>
-        </div>
-        <div class="device">
-          <div>
-            <div class="device-name">MacBook Pro</div>
-            <div class="device-spec">Mobile + on-the-go agent development</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">ar-mbp</div>
-        </div>
-        <div class="device">
-          <div>
-            <div class="device-name">Jetson Thor (shared DASLAB)</div>
-            <div class="device-spec">Edge robotics platform • Currently offsite with Shivani</div>
-          </div>
-          <div style="color:#00ff9f; font-size:13px;">ar-jetson</div>
-        </div>
-      </div>
-      
-      <p style="font-size:14px; color:#666; margin-top:12px;">
-        Plus university clusters (Delta @ NCSA, ICC, ICRN) with Duo-protected access via persistent ControlMaster.
-      </p>
-    </section>
+  <!-- MARKETS -->
+  <section><div class="wrap">
+    <span class="eyebrow" style="color:var(--muted)">Who we serve</span>
+    <h2>One platform, the places that run on care.</h2>
+    <div class="markets">
+      <div class="mk"><div class="ic" aria-hidden="true">🏡</div><h3>Senior living</h3><p>Humanoid robots with AR + tactile feedback for family connection and companionship — designed around residents and the caregivers who support them.</p></div>
+      <div class="mk"><div class="ic" aria-hidden="true">🏨</div><h3>Hotels &amp; resorts</h3><p>Autonomous room&#8209;service and food delivery plus housekeeping support — better guest experience, less running around.</p></div>
+      <div class="mk"><div class="ic" aria-hidden="true">🏥</div><h3>Hospitals &amp; clinics</h3><p>Reliable medicine and supply delivery between wards, so clinical staff stay with patients, not in the hallway.</p></div>
+    </div>
+  </div></section>
 
-    <!-- Research highlights -->
-    <section>
-      <div class="section-title">Recent work</div>
-      <div class="grid">
-        <div class="card">
-          <h3>WaypointGen</h3>
-          <p style="color:#aaa; margin:0 0 16px;">Natural language → 2D navigation waypoints for mobile manipulators using VLMs + MPPI + BEV geometry. CSL SC 2026 poster. RA-L journal version in prep.</p>
-          <a href="https://kulbir-singh-ahluwalia.com" target="_blank" class="link">Read more →</a>
-        </div>
-        <div class="card">
-          <h3>Active Semantic Mapping (ICRA 2025)</h3>
-          <p style="color:#aaa; margin:0 0 16px;">Probabilistic semantic octomaps + next-best-view planning with information gain on real mobile manipulator in horticultural environments.</p>
-          <a href="https://arxiv.org/abs/2412.10515" target="_blank" class="link">arXiv →</a>
-        </div>
-        <div class="card">
-          <h3>Distributed Fleet Infrastructure</h3>
-          <p style="color:#aaa; margin:0 0 16px;">Canonical SSH config, Tailscale mesh, ControlMaster for clusters, agent hub patterns, nightly health probes, rsync-based memory &amp; skill replication across 8+ devices.</p>
-          <a href="https://github.com/enterprises/agentic-robots" target="_blank" class="link">View on GitHub →</a>
-        </div>
-      </div>
-    </section>
+  <!-- VISION -->
+  <section id="vision" class="vision"><div class="wrap">
+    <span class="eyebrow" style="color:var(--muted)">Why now</span>
+    <p>Aging populations and staffing shortages are colliding with care that's harder to deliver. <span class="em">We build robots safe around people, and AR that treats every resident with dignity</span> — so the humans get their time back.</p>
+  </div></section>
 
-    <!-- Links -->
-    <section id="contact">
-      <div class="section-title">Connect</div>
-      <div class="links">
-        <a href="https://github.com/enterprises/agentic-robots" target="_blank" class="link">GitHub Org</a>
-        <a href="https://kulbir-singh-ahluwalia.com" target="_blank" class="link">Kulbir's Site</a>
-        <a href="https://github.com/kulbir-ahluwalia" target="_blank" class="link">Personal GitHub</a>
-        <a href="mailto:ksa5@illinois.edu" class="link">Email</a>
-        <a href="https://x.com/Kulbir_Singh_" target="_blank" class="link">X / Twitter</a>
+  <!-- CTA -->
+  <section><div class="wrap">
+    <div class="band">
+      <span class="eyebrow" style="color:var(--muted)">Get in touch</span>
+      <h2>Pilots, partnerships, and roles — let's talk.</h2>
+      <p class="lede" style="margin:16px auto 0">Running a senior community, hotel, or hospital — or want to build this with us? We'd love to hear from you.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:hello@agentic-robots.ai">hello@agentic-robots.ai</a>
       </div>
-      
-      <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #222; font-size: 13px; color: #555;">
-        Domains: agentic-robots.ai • .net • .org • kulbir-singh-ahluwalia.com • prachit-puranik.com<br>
-        Powered by a real heterogeneous fleet running real agents doing real robotics.
-      </div>
-    </section>
+    </div>
+  </div></section>
+</main>
 
-    <footer>
-      <div class="container">
-        © Agentic Robots 2026 • A Kulbir + Chahit + DASLAB initiative
-      </div>
-    </footer>
-  </div>
+<footer><div class="wrap"><div class="frow">
+  <div class="logo"><span class="dot" aria-hidden="true"></span> Agentic&nbsp;Robots</div>
+  <div>&copy; 2026 Agentic Robots · <a href="mailto:hello@agentic-robots.ai">hello@agentic-robots.ai</a></div>
+</div></div></footer>
 </body>
 </html>
