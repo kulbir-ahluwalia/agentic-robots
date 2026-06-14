@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Robots • Physical AI Fleet</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    
+    :root {
+      --bg: #0a0a0a;
+      --text: #f5f5f5;
+      --accent: #00ff9f;
+      --card: #111;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Inter', system_ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    header {
+      padding: 32px 0 48px;
+      border-bottom: 1px solid #222;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 15px;
+    }
+    
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text);
+    }
+    
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin: 0 0 24px;
+    }
+    
+    .hero .subtitle {
+      font-size: 22px;
+      color: #999;
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 255, 159, 0.3);
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    
+    .card:hover {
+      border-color: #333;
+    }
+    
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 21px;
+    }
+    
+    .fleet {
+      background: #0f0f0f;
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+    
+    .device {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #222;
+    }
+    
+    .device:last-child {
+      border-bottom: none;
+    }
+    
+    .device-name {
+      font-weight: 500;
+    }
+    
+    .device-spec {
+      font-size: 14px;
+      color: #777;
+    }
+    
+    .links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 8px 16px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    footer {
+      border-top: 1px solid #222;
+      padding: 40px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .accent {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="nav">
+        <div class="logo">agentic<span>robots</span></div>
+        <div class="nav-links">
+          <a href="#fleet">Fleet</a>
+          <a href="https://kulbir-singh-ahluwalia.com" target="_blank">Research</a>
+          <a href="https://github.com/enterprises/agentic-robots" target="_blank">GitHub</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Agentic Robots.<br>Physical AI at scale.</h1>
+      <p class="subtitle">
+        A distributed fleet of high-performance machines and agents for grounded robotics, 
+        VLMs, and real-world physical intelligence research.
+      </p>
+      
+      <a href="https://github.com/enterprises/agentic-robots" class="cta" target="_blank">
+        Explore the org →
+      </a>
+      
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Machines</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">128GB+</div>
+          <div class="stat-label">Unified on DGX</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">RTX 5090</div>
+          <div class="stat-label">Workstation</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Agents</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What we do -->
+    <section id="about">
+      <div class="section-title">What we're building</div>
+      <div style="max-width: 720px; font-size: 19px; color: #ccc;">
+        We run a heterogeneous compute fleet (NVIDIA DGX Spark systems, high-end workstations, 
+        Jetson Thor, and university clusters) to train, distill, and deploy vision-language models 
+        that actually control real robots in the wild — agricultural fields, greenhouses, and beyond.
+        <br><br>
+        Everything is orchestrated with Tailscale, custom SSH fleets, agentic workflows, and 
+        reproducible pipelines. The goal: scalable Physical AI.
+      </div>
+    </section>
+
+    <!-- Fleet -->
+    <section id="fleet">
+      <div class="section-title">The fleet (home devices)</div>
+      
+      <div class="fleet">
+        <div class="device">
+          <div>
+            <div class="device-name">MSI Workstation (RTX 5080)</div>
+            <div class="device-spec">Primary dev + orchestration node • Tailscale 100.65.71.120</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">msi / ar-msi</div>
+        </div>
+        <div class="device">
+          <div>
+            <div class="device-name">DGX Spark X2 (128 GB unified)</div>
+            <div class="device-spec">Primary heavy inference + training • kulbir-spark-x2</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">ar-x2 / dgx-x2</div>
+        </div>
+        <div class="device">
+          <div>
+            <div class="device-name">DGX Spark X1 (128 GB unified)</div>
+            <div class="device-spec">Secondary node (recovery workflows on X2)</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">ar-x1 / dgx-x1</div>
+        </div>
+        <div class="device">
+          <div>
+            <div class="device-name">Siebel-PC (RTX 5090 32 GB)</div>
+            <div class="device-spec">High-power GPU workstation • Chahit collab</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">ar-siebel / siebel</div>
+        </div>
+        <div class="device">
+          <div>
+            <div class="device-name">MacBook Pro</div>
+            <div class="device-spec">Mobile + on-the-go agent development</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">ar-mbp</div>
+        </div>
+        <div class="device">
+          <div>
+            <div class="device-name">Jetson Thor (shared DASLAB)</div>
+            <div class="device-spec">Edge robotics platform • Currently offsite with Shivani</div>
+          </div>
+          <div style="color:#00ff9f; font-size:13px;">ar-jetson</div>
+        </div>
+      </div>
+      
+      <p style="font-size:14px; color:#666; margin-top:12px;">
+        Plus university clusters (Delta @ NCSA, ICC, ICRN) with Duo-protected access via persistent ControlMaster.
+      </p>
+    </section>
+
+    <!-- Research highlights -->
+    <section>
+      <div class="section-title">Recent work</div>
+      <div class="grid">
+        <div class="card">
+          <h3>WaypointGen</h3>
+          <p style="color:#aaa; margin:0 0 16px;">Natural language → 2D navigation waypoints for mobile manipulators using VLMs + MPPI + BEV geometry. CSL SC 2026 poster. RA-L journal version in prep.</p>
+          <a href="https://kulbir-singh-ahluwalia.com" target="_blank" class="link">Read more →</a>
+        </div>
+        <div class="card">
+          <h3>Active Semantic Mapping (ICRA 2025)</h3>
+          <p style="color:#aaa; margin:0 0 16px;">Probabilistic semantic octomaps + next-best-view planning with information gain on real mobile manipulator in horticultural environments.</p>
+          <a href="https://arxiv.org/abs/2412.10515" target="_blank" class="link">arXiv →</a>
+        </div>
+        <div class="card">
+          <h3>Distributed Fleet Infrastructure</h3>
+          <p style="color:#aaa; margin:0 0 16px;">Canonical SSH config, Tailscale mesh, ControlMaster for clusters, agent hub patterns, nightly health probes, rsync-based memory &amp; skill replication across 8+ devices.</p>
+          <a href="https://github.com/enterprises/agentic-robots" target="_blank" class="link">View on GitHub →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Links -->
+    <section id="contact">
+      <div class="section-title">Connect</div>
+      <div class="links">
+        <a href="https://github.com/enterprises/agentic-robots" target="_blank" class="link">GitHub Org</a>
+        <a href="https://kulbir-singh-ahluwalia.com" target="_blank" class="link">Kulbir's Site</a>
+        <a href="https://github.com/kulbir-ahluwalia" target="_blank" class="link">Personal GitHub</a>
+        <a href="mailto:ksa5@illinois.edu" class="link">Email</a>
+        <a href="https://x.com/Kulbir_Singh_" target="_blank" class="link">X / Twitter</a>
+      </div>
+      
+      <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #222; font-size: 13px; color: #555;">
+        Domains: agentic-robots.ai • .net • .org • kulbir-singh-ahluwalia.com • prachit-puranik.com<br>
+        Powered by a real heterogeneous fleet running real agents doing real robotics.
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        © Agentic Robots 2026 • A Kulbir + Chahit + DASLAB initiative
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
