@@ -1,45 +1,72 @@
 # enterprises/agentic-robots
 
-Canonical home for **Agentic Robots** — Kulbir + Chahit (and collaborators) fleet of physical + digital agents, heavy compute (DGX Spark pair, RTX 5090, Jetson Thor, clusters), and the supporting infrastructure.
+**Agentic Robots** — Kulbir + Chahit fleet for Physical AI, distributed compute, VLMs on real robots, and agentic infrastructure.
 
-## Goals (use *all* features of this repo)
-- Single source of truth for device inventory, SSH config, Tailscale reachability, and fleet orchestration scripts.
-- Reproducible distributed training / inference / data pipelines across heterogeneous hardware.
-- Professional public face (website + branding) for `agentic-robots.ai` / `.net` / `.org`.
-- Memory, runbooks, and skills that survive across the entire fleet (MSI, DGX-X1/X2, Siebel, MacBook, Jetson, Delta/ICC/ICRN, future machines).
+Live site: https://agentic-robots.ai (powered by this repo via GitHub Pages)
 
-## Layout (grow this)
-- `fleet/inventory/` — devices.json, tailscale-ips, hardware capabilities, last-known-state
-- `fleet/ssh/` — the canonical `config` + fragments. See also historical scripts in the operators' home dirs.
-- `fleet/scripts/` — bootstrap, health, sync, probe, update-ssh, etc. (many battle-tested versions live in `~/*.sh`)
-- `website/` or `landing/` — source for the public site (or guidance linking Squarespace ↔ GitHub Pages / self-hosted)
-- `docs/` — fleet-device-info snapshots, runbooks, CoRL/RA-L artifacts, memory
-- `skills/` or `agent-hub/` — reusable agent patterns (v14+), prompt libraries, etc.
+## What's here (all the features)
+- `index.html` + `CNAME` — clean professional landing page (dark theme, fleet roster with short `ar-*` aliases, research, links)
+- `fleet/` — inventory (devices.json), ssh/ (canonical config template)
+- `docs/` — HOWTO for Squarespace domain linking, device inventory
+- `landing/` — source of the homepage
+- `README.md`, scripts, etc.
 
-## SSH / fleet access
-See `fleet/ssh/config` (and the version that ends up in each machine's `~/.ssh/config`).
+## Deploy / update the site
+The site is static HTML served by GitHub Pages from the root of `main`.
 
-Typical short aliases after this config is active:
-- `ssh msi`, `ssh ar-x2`, `ssh siebel`, `ssh ar-mbp`, `ssh jetson-thor`
-- UofI clusters: `ssh delta`, `ssh icc`, `ssh icrn`
+After any change to `index.html`:
+```bash
+git add index.html
+git commit -m "update: landing page"
+git push
+```
 
-All home devices use the `id_ed25519_fleet` key (never commit private keys).
+## Initial setup (one time)
+1. Create the GitHub Organization named **enterprises** (if not done):
+   - Go to https://github.com/account/organizations/new
+   - Name: `enterprises`
+   - Create (free plan ok for public repos)
 
-## Domains we own (Squarespace)
-- agentic-robots.ai (primary, exp 2028)
-- agentic-robots.net (2029)
-- agentic-robots.org (2029)
-- kulbir-singh-ahluwalia.com (personal site, already pointed at GitHub Pages)
-- prachit-puranik.com (2029)
+2. Create the repo (or it was created):
+   ```bash
+   # This dir already has the remote set
+   git push -u origin main
+   ```
 
-See `HOWTO_squarespace_agentic_robots_domains.md` for exact DNS linking steps (GitHub Pages vs Squarespace builder).
+3. Enable GitHub Pages + custom domain:
+   - In this repo on GitHub: Settings → Pages
+   - Build and deployment: Source = "Deploy from a branch"
+   - Branch: `main`, folder: `/ (root)`
+   - Custom domain: `agentic-robots.ai`
+   - Save. GitHub will check the DNS (see below).
 
-## Contributing
-Open PRs against this repo for:
-- New device onboarding (add to inventory + SSH fragment + key copy instructions)
-- Improved fleet scripts or distributed recipes
-- Website / branding changes
-- Memory updates
+4. Point the domain (critical to kill Squarespace "coming soon" crap):
+   In Squarespace DNS Settings for `agentic-robots.ai`:
+   - Delete the Squarespace Defaults A records (the 4x 198.49... and 198.185... for @)
+   - Delete the `www` CNAME (ext-sq.squarespace.com)
+   - Delete the HTTPS record
+   - Keep Google Workspace (MX + TXT) if you want email
+   - Add Custom records:
+     - 4x A records:
+       Name: `@`
+       Data: 185.199.108.153
+       (repeat for .109.153, .110.153, .111.153)
+     - 1x CNAME:
+       Name: `www`
+       Data: `enterprises.github.io`
 
-This repo + the Tailscale network + the dedicated fleet key = the "enterprises" control plane.
+   Propagation: up to 4 hours (TTL), usually faster. Use `dig agentic-robots.ai` to check.
+
+Once DNS is updated and Pages verifies the domain, https://agentic-robots.ai will serve this clean site (no more coming soon placeholder).
+
+## Other domains
+- agentic-robots.net / .org : repeat the A/CNAME or set URL redirects to .ai in Squarespace
+- kulbir-singh-ahluwalia.com : already points correctly to GitHub Pages — leave it
+
+## Fleet SSH
+See `fleet/ssh/config` for the canonical SSH config with all the `ar-*` aliases and Tailscale hosts. Copy to `~/.ssh/config` on machines and distribute via your usual fleet syncs.
+
+Full HOWTO for domains is in `docs/HOWTO_squarespace_agentic_robots_domains.md`
+
+This repo + Tailscale + the fleet key = the control plane for the agentic robots enterprise.
 
