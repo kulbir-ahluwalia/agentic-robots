@@ -1,0 +1,18 @@
+{
+  "fleet": "agentic-robots",
+  "org": "https://github.com/enterprises/agentic-robots",
+  "updated": "2026-06-14",
+  "devices": [
+    {"short": "msi", "user": "kulbir-msi-server", "tailscale_ip": "100.65.71.120", "role": "workstation-rtx5080", "owner": "kulbir"},
+    {"short": "dgx-x2", "user": "kulbir-spark-x2", "tailscale": "kulbir-spark-7081-x2-128gb.taild13062.ts.net", "role": "dgx-spark-128gb-primary"},
+    {"short": "dgx-x1", "user": "kulbir-dgx-x1", "tailscale": "kulbir-spark-b3d4-x1-128gb.taild13062.ts.net", "role": "dgx-spark-128gb-secondary", "notes": "frequently offline; recovery on x2"},
+    {"short": "siebel", "user": "kulbir", "tailscale": "kulbir-siebel-pc-rtx5090-32gb-575w.taild13062.ts.net", "role": "workstation-rtx5090"},
+    {"short": "mbp", "user": "kulbir", "tailscale": "kulbirs-macbook-pro-36gb.taild13062.ts.net", "role": "laptop"},
+    {"short": "jetson-thor", "user": "shivanikamtikar", "tailscale_ip": "100.74.53.35", "role": "shared-jetson-thor", "notes": "offsite with Shivani as of 2026-05; DASLAB asset"}
+  ],
+  "clusters": ["delta", "icc", "icrn-dtn"],
+  "keys": {
+    "fleet": "~/.ssh/id_ed25519_fleet",
+    "github": "~/.ssh/id_ed25519_github"
+  }
+}

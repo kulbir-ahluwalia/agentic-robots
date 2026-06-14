@@ -1,0 +1,89 @@
+# >>> kulbir-fleet BEGIN >>>
+# Managed by ssh_fleet_bootstrap_20260502T035333Z.sh — no passwords stored.
+# dgx-x2 — multi-pattern Host (added 2026-05-23 per MEMORY-MAY23-DGX-X2-SYSTEM-INFO-FULL-2026.md)
+Host dgx-x2 kulbir-spark-x2 kulbir-spark-7081-x2 kulbir-spark-7081-x2-128gb kulbir-spark-7081-x2-128gb.taild13062.ts.net 100.78.242.101
+  HostName kulbir-spark-7081-x2-128gb.taild13062.ts.net
+  User kulbir-spark-x2
+  IdentityFile /home/kulbir-msi-server/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# dgx-x1 — multi-pattern Host (X1 OFFLINE 3d as of 2026-05-23; recovery scripts on dgx-x2:~/)
+Host dgx-x1 kulbir-dgx-x1 kulbir-spark-b3d4-x1 kulbir-spark-b3d4-x1-128gb kulbir-spark-b3d4-x1-128gb.taild13062.ts.net 100.92.206.125
+  HostName kulbir-spark-b3d4-x1-128gb.taild13062.ts.net
+  User kulbir-dgx-x1
+  IdentityFile /home/kulbir-msi-server/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# managed-by fix_siebel_ssh_and_reap_tunnel_20260519T220500Z
+Host siebel siebel-pc siebel-pc.taild13062.ts.net kulbir-siebel-pc-rtx5090-32gb-575w
+  HostName kulbir-siebel-pc-rtx5090-32gb-575w.taild13062.ts.net
+  User kulbir
+  IdentityFile /home/kulbir-msi-server/.ssh/id_ed25519_fleet
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%C
+  ControlPersist 26h
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  IdentitiesOnly yes
+
+Host kulbir-mbp
+  HostName kulbirs-macbook-pro-36gb.taild13062.ts.net
+  User kulbir
+  IdentityFile /home/kulbir-msi-server/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+# <<< kulbir-fleet END <<<
+
+
+# >>> uofi-controlmaster BEGIN >>>
+# Managed by ~/Desktop/UofI-SSH-ControlMaster-Setup-May1-2026/setup.sh
+# Purpose: U of Illinois SSH 2FA (Duo Push) survives 1 day+ via ControlMaster
+# multiplexing. First SSH to a UofI host triggers Duo; subsequent SSHs to the
+# same host within 26h reuse the master socket and skip auth entirely.
+# Pre-warm the connection: ssh -fN cc-login.campuscluster.illinois.edu
+Host *.illinois.edu *.uillinois.edu cc-login* linux.ews.illinois.edu linux.cs.illinois.edu delta icc csl-icc csl-icc-girish-compute icrn icrn-dtn
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%C
+  ControlPersist 26h
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  ForwardAgent no
+# <<< uofi-controlmaster END <<<
+
+
+# >>> uofi-aliases BEGIN >>>
+# Short aliases for UofI clusters. Inherits ControlMaster from the wildcard
+# block above (since their HostNames match *.illinois.edu / cc-login*).
+Host icc csl-icc csl-icc-girish-compute
+  HostName cc-login.campuscluster.illinois.edu
+  User ksa5
+
+Host delta
+    HostName login.delta.ncsa.illinois.edu
+    User kulbir97
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
+    ControlMaster auto
+    ControlPath ~/.ssh/cm-%r@%h:%p
+    ControlPersist 26h
+# <<< uofi-aliases END <<<
+
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github
+    IdentitiesOnly yes
+
+# >>> uofi-icrn BEGIN >>>
+# ICRN data-transfer node (merged 2026-05-26, was duplicate)
+# Inherits ControlMaster from wildcard *.illinois.edu block above
+Host icrn icrn-dtn
+    HostName cli-dtn.researchdata.illinois.edu
+    User ksa5
+
+# Jetson Thor (Shivani Kamtikar, DASLAB shared lab) — added 2026-05-27 for CoRL v16 evals
+Host shivani_jetson_thor jetson_thor_shivani jetson-thor shivani-thor shivanikamtikar 100.74.53.35
+  HostName 100.74.53.35
+  User shivanikamtikar
+  IdentityFile /home/kulbir-msi-server/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes

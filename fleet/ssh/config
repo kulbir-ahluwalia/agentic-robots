@@ -1,0 +1,169 @@
+# =============================================================================
+# SSH client configuration — Kulbir Singh Ahluwalia "Agentic Robots" fleet
+# =============================================================================
+#
+# Primary long-term source of truth:
+#   https://github.com/enterprises/agentic-robots
+#
+#   Recommended layout in that repo (use these "all features"):
+#     fleet/inventory/          — devices.json / roster.yaml / tailscale-ips.md
+#     fleet/ssh/                — config (this file or composable fragments)
+#                                 config.d/fleet , config.d/uofi , config.d/github
+#     fleet/scripts/            — bootstrap.sh, update_ssh_config.sh, sync_to_fleet.sh,
+#                                 probe.sh, health.sh (many prior versions live in ~/)
+#     website/ or landing/      — static site source or Squarespace guidance
+#     docs/                     — runbooks, memory, fleet-device-info snapshots
+#
+# Local ~/.ssh/config on each machine is the runtime copy.
+# Keep the repo as the single source; propose improvements there.
+# Distribute via the existing fleet sync patterns (rsync over Tailscale,
+# claude-sync skill, or dedicated sync_*.sh scripts).
+#
+# Key philosophy (2026 fleet):
+#   - One fleet key (id_ed25519_fleet) for all home devices + shared lab (Jetson)
+#   - Separate GitHub key for git+ssh (personal + enterprises org)
+#   - Heavy use of ControlMaster for U of I clusters (Duo 2FA survives 26h)
+#   - Tailscale everywhere for stable hostnames + IPs
+#   - Short memorable aliases + "ar-*" brand aliases for Agentic Robots
+#   - No passwords in scripts or configs
+#
+# Regenerated: 2026-06-14 on msi-kulbir-server
+# Previous managers (historical): ssh_fleet_bootstrap_20260502..., update_ssh_config_20260509...,
+#   fix_siebel_ssh_and_reap_tunnel_20260519..., plus many fleet sync scripts.
+#
+# =============================================================================
+
+# Safe defaults for long-lived Tailscale + cluster sessions.
+# Specific Host blocks below can override.
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 5
+    TCPKeepAlive yes
+
+# -----------------------------------------------------------------------------
+# >>> kulbir-fleet (Agentic Robots home devices) BEGIN >>>
+# All devices reachable passwordless via id_ed25519_fleet over Tailscale.
+# "ar-*" aliases are the new branded short names for the enterprises/agentic-robots era.
+# -----------------------------------------------------------------------------
+
+# This machine (MSI workstation)
+Host msi msi-kulbir-server kulbir-msi-server ar-msi 100.65.71.120
+  HostName 100.65.71.120
+  User kulbir-msi-server
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# DGX Spark X2 (primary heavy node)
+Host dgx-x2 ar-dgx-x2 ar-x2 kulbir-spark-x2 kulbir-spark-7081-x2 kulbir-spark-7081-x2-128gb kulbir-spark-7081-x2-128gb.taild13062.ts.net 100.78.242.101
+  HostName kulbir-spark-7081-x2-128gb.taild13062.ts.net
+  User kulbir-spark-x2
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# DGX Spark X1 (recovery notes usually live on X2)
+Host dgx-x1 ar-dgx-x1 ar-x1 kulbir-dgx-x1 kulbir-spark-b3d4-x1 kulbir-spark-b3d4-x1-128gb kulbir-spark-b3d4-x1-128gb.taild13062.ts.net 100.92.206.125
+  HostName kulbir-spark-b3d4-x1-128gb.taild13062.ts.net
+  User kulbir-dgx-x1
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# Siebel-PC RTX 5090 workstation (Chahit collab + heavy GPU)
+Host siebel siebel-pc ar-siebel kulbir-siebel-pc kulbir-siebel-pc-rtx5090-32gb-575w siebel-pc.taild13062.ts.net
+  HostName kulbir-siebel-pc-rtx5090-32gb-575w.taild13062.ts.net
+  User kulbir
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%C
+  ControlPersist 26h
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  IdentitiesOnly yes
+
+# MacBook Pro
+Host kulbir-mbp ar-mbp mbp
+  HostName kulbirs-macbook-pro-36gb.taild13062.ts.net
+  User kulbir
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# <<< kulbir-fleet END <<<
+
+# Shared lab Jetson Thor (Shivani Kamtikar, currently offsite Seattle)
+# Direct Tailscale IP while hostname may vary.
+Host jetson-thor ar-jetson thor shivani-jetson shivanikamtikar 100.74.53.35
+  HostName 100.74.53.35
+  User shivanikamtikar
+  IdentityFile ~/.ssh/id_ed25519_fleet
+  IdentitiesOnly yes
+
+# -----------------------------------------------------------------------------
+# U of I / campus clusters — ControlMaster survives Duo 2FA pushes
+# Pre-warm: ssh -fN cc-login.campuscluster.illinois.edu
+# -----------------------------------------------------------------------------
+# >>> uofi-controlmaster BEGIN >>>
+# Managed historically by ~/Desktop/UofI-SSH-ControlMaster-Setup-May1-2026/setup.sh
+# Purpose: U of Illinois SSH 2FA (Duo Push) survives 1 day+ via ControlMaster
+# multiplexing. First SSH to a UofI host triggers Duo; subsequent SSHs to the
+# same host within 26h reuse the master socket and skip auth entirely.
+Host *.illinois.edu *.uillinois.edu cc-login* linux.ews.illinois.edu linux.cs.illinois.edu delta icc csl-icc csl-icc-girish-compute icrn icrn-dtn
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%C
+  ControlPersist 26h
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  ForwardAgent no
+# <<< uofi-controlmaster END <<<
+
+# >>> uofi-aliases BEGIN >>>
+# Short aliases. They inherit the ControlMaster wildcard above.
+Host icc csl-icc csl-icc-girish-compute
+  HostName cc-login.campuscluster.illinois.edu
+  User ksa5
+
+Host delta
+  HostName login.delta.ncsa.illinois.edu
+  User kulbir97
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  TCPKeepAlive yes
+  ControlMaster auto
+  ControlPath ~/.ssh/cm-%r@%h:%p
+  ControlPersist 26h
+# <<< uofi-aliases END <<<
+
+# ICRN DTN (data transfer node) — inherits ControlMaster from wildcard
+# >>> uofi-icrn BEGIN >>>
+Host icrn icrn-dtn
+  HostName cli-dtn.researchdata.illinois.edu
+  User ksa5
+# <<< uofi-icrn END <<<
+
+# -----------------------------------------------------------------------------
+# GitHub (enterprises org + personal)
+# -----------------------------------------------------------------------------
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_github
+  IdentitiesOnly yes
+
+# -----------------------------------------------------------------------------
+# >>> agentic-robots (https://github.com/enterprises/agentic-robots) BEGIN >>>
+#
+# Add future machines, new short "ar-*" branded aliases, or generated blocks here.
+# When a canonical fragment lives in the repo (fleet/ssh/config.d/*), a sync
+# script can safely append or compose:
+#
+#   curl -fsSL https://raw.githubusercontent.com/enterprises/agentic-robots/main/fleet/ssh/config.d/fleet >> ~/.ssh/config
+#
+# Or (preferred): keep this whole file in the repo and have a small composer that
+# cats fragments in order, then rsyncs the result to all fleet members.
+#
+# New device example (once added to inventory and key copied):
+# Host ar-newbox newbox-name 100.x.y.z
+#   HostName 100.x.y.z
+#   User theuser
+#   IdentityFile ~/.ssh/id_ed25519_fleet
+#   IdentitiesOnly yes
+#
+# <<< agentic-robots (https://github.com/enterprises/agentic-robots) END <<<
