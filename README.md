@@ -1,13 +1,12 @@
 # enterprises/agentic-robots
 
-**Agentic Robots** — Kulbir + Chahit fleet for Physical AI, distributed compute, VLMs on real robots, and agentic infrastructure.
+**Agentic Robots**: a fleet for Physical AI, distributed compute, VLMs on real robots, and agentic infrastructure.
 
 Live site: https://agentic-robots.ai (powered by this repo via GitHub Pages)
 
 ## What's here (all the features)
 - `index.html` + `CNAME` — clean professional landing page (dark theme, fleet roster with short `ar-*` aliases, research, links)
-- `fleet/` — inventory (devices.json), ssh/ (canonical config template)
-- `docs/` — HOWTO for Squarespace domain linking, device inventory
+- `docs/`: HOWTO for Squarespace domain linking
 - `landing/` — source of the homepage
 - `README.md`, scripts, etc.
 
@@ -62,9 +61,6 @@ Once DNS is updated and Pages verifies the domain, https://agentic-robots.ai wil
 ## Other domains
 - agentic-robots.net / .org : repeat the A/CNAME or set URL redirects to .ai in Squarespace
 - kulbir-singh-ahluwalia.com : already points correctly to GitHub Pages — leave it
-
-## Fleet SSH
-See `fleet/ssh/config` for the canonical SSH config with all the `ar-*` aliases and Tailscale hosts. Copy to `~/.ssh/config` on machines and distribute via your usual fleet syncs.
 
 Full HOWTO for domains is in `docs/HOWTO_squarespace_agentic_robots_domains.md`
 
