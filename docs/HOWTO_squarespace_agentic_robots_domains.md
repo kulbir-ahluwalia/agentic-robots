@@ -19,7 +19,6 @@ Current reality (verified 2026-06-14):
 3. Use the AI builder or a clean template. Suggested name / tagline:
    - "Agentic Robots"
    - "Physical AI • Distributed Fleet • Natural Language Robotics"
-   - Kulbir Singh Ahluwalia + Chahit Jain + DASLAB + collaborators
 4. Add:
    - Prominent GitHub org link (https://github.com/enterprises/agentic-robots)
    - Link to the detailed personal site (https://kulbir-singh-ahluwalia.com)
@@ -81,7 +80,7 @@ It is already correctly pointed (A records to GitHub's range). Nothing to change
 
 ## prachit-puranik.com
 Treat exactly like the others. Options:
-- Quick Squarespace site for Chahit (or joint landing)
+- Quick Squarespace site (or a joint landing page)
 - Point to an existing personal site of his via A/CNAME
 - Forward to agentic-robots.ai or the main personal site
 
